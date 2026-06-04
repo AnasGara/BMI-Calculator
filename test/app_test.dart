@@ -31,5 +31,8 @@ void main() {
     
     // Verify the app doesn't crash
     expect(find.byType(MaterialApp), findsOneWidget);
+
+    // Pump and settle to handle splash screen timer
+    await tester.pumpAndSettle(const Duration(seconds: 3));
   });
 }
