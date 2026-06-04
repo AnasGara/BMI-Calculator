@@ -14,9 +14,11 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
   bool _isLoaded = false;
 
   @override
-  void initState() {
-    super.initState();
-    _loadAd();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_bannerAd == null) {
+      _loadAd();
+    }
   }
 
   void _loadAd() async {
