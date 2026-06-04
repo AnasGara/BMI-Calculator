@@ -113,7 +113,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.appTitle),
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
