@@ -4,6 +4,7 @@ import 'package:bmicalculator/generated/app_localizations.dart';
 import '../main.dart';
 import 'privacy_policy_screen.dart';
 import 'terms_screen.dart';
+import '../widgets/ad_banner_widget.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -15,50 +16,57 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settings)),
-      body: ListView(
+      body: Column(
         children: [
-          const SizedBox(height: 16),
-          _SectionHeader(title: l10n.language),
-          ListTile(
-            leading: const Icon(Icons.language),
-            title: Text(l10n.language),
-            trailing: DropdownButton<String>(
-              value: appState.languageCode,
-              underline: const SizedBox(),
-              items: const [
-                DropdownMenuItem(value: 'en', child: Text('English')),
-                DropdownMenuItem(value: 'fr', child: Text('Français')),
-                DropdownMenuItem(value: 'ar', child: Text('العربية')),
-                DropdownMenuItem(value: 'es', child: Text('Español')),
-                DropdownMenuItem(value: 'de', child: Text('Deutsch')),
+          Expanded(
+            child: ListView(
+              children: [
+                const SizedBox(height: 16),
+                _SectionHeader(title: l10n.language),
+                ListTile(
+                  leading: const Icon(Icons.language),
+                  title: Text(l10n.language),
+                  trailing: DropdownButton<String>(
+                    value: appState.languageCode,
+                    underline: const SizedBox(),
+                    items: const [
+                      DropdownMenuItem(value: 'en', child: Text('English')),
+                      DropdownMenuItem(value: 'fr', child: Text('Français')),
+                      DropdownMenuItem(value: 'ar', child: Text('العربية')),
+                      DropdownMenuItem(value: 'es', child: Text('Español')),
+                      DropdownMenuItem(value: 'de', child: Text('Deutsch')),
+                    ],
+                    onChanged: (val) {
+                      if (val != null) appState.setLanguage(val);
+                    },
+                  ),
+                ),
+                const Divider(),
+                _SectionHeader(title: l10n.unitSystem),
+                SwitchListTile(
+                  secondary: const Icon(Icons.scale),
+                  title: Text(appState.unitSystem == 'metric' ? l10n.metric : l10n.imperial),
+                  value: appState.unitSystem == 'metric',
+                  onChanged: (val) {
+                    appState.setUnitSystem(val ? 'metric' : 'imperial');
+                  },
+                ),
+                const Divider(),
+                _SectionHeader(title: 'App Info'),
+                ListTile(
+                  leading: const Icon(Icons.privacy_tip_outlined),
+                  title: Text(l10n.privacyPolicy),
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen())),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.description_outlined),
+                  title: Text(l10n.termsOfUse),
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TermsOfUseScreen())),
+                ),
               ],
-              onChanged: (val) {
-                if (val != null) appState.setLanguage(val);
-              },
             ),
           ),
-          const Divider(),
-          _SectionHeader(title: l10n.unitSystem),
-          SwitchListTile(
-            secondary: const Icon(Icons.scale),
-            title: Text(appState.unitSystem == 'metric' ? l10n.metric : l10n.imperial),
-            value: appState.unitSystem == 'metric',
-            onChanged: (val) {
-              appState.setUnitSystem(val ? 'metric' : 'imperial');
-            },
-          ),
-          const Divider(),
-          _SectionHeader(title: 'App Info'),
-          ListTile(
-            leading: const Icon(Icons.privacy_tip_outlined),
-            title: Text(l10n.privacyPolicy),
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen())),
-          ),
-          ListTile(
-            leading: const Icon(Icons.description_outlined),
-            title: Text(l10n.termsOfUse),
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TermsOfUseScreen())),
-          ),
+          const AdBannerWidget(),
         ],
       ),
     );
