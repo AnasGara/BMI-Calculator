@@ -4,6 +4,7 @@ import 'package:bmicalculator/generated/app_localizations.dart';
 import '../services/storage_service.dart';
 import '../main.dart';
 import 'home_screen.dart';
+import '../widgets/ad_banner_widget.dart';
 
 class UnitSelectScreen extends StatelessWidget {
   const UnitSelectScreen({super.key});
@@ -43,6 +44,7 @@ class UnitSelectScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: const AdBannerWidget(),
     );
   }
 

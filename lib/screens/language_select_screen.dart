@@ -4,6 +4,7 @@ import '../services/storage_service.dart';
 import '../widgets/language_card.dart';
 import '../main.dart';
 import 'unit_select_screen.dart';
+import '../widgets/ad_banner_widget.dart';
 
 class LanguageSelectScreen extends StatelessWidget {
   const LanguageSelectScreen({super.key});
@@ -60,6 +61,7 @@ class LanguageSelectScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: const AdBannerWidget(),
     );
   }
 }
