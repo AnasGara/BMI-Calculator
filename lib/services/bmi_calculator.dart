@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:bmicalculator/generated/app_localizations.dart';
 
 enum BMICategory { underweight, normal, overweight, obese }
 
@@ -39,10 +39,10 @@ class BMICalculator {
   static String getHealthTip(BuildContext context, BMICategory category) {
     final l10n = AppLocalizations.of(context)!;
     switch (category) {
-      case BMICategory.underweight: return l10n.healthTipUnderweight;
-      case BMICategory.normal: return l10n.healthTipNormal;
-      case BMICategory.overweight: return l10n.healthTipOverweight;
-      case BMICategory.obese: return l10n.healthTipObese;
+      case BMICategory.underweight: return "Health Tip Underweight";
+      case BMICategory.normal: return "Health Tip Normal";
+      case BMICategory.overweight: return "Health Tip Overweight";
+      case BMICategory.obese: return "Health Tip Obese";
     }
   }
 

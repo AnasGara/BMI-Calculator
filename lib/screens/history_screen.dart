@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:bmicalculator/generated/app_localizations.dart';
 import 'package:intl/intl.dart';
 import '../services/storage_service.dart';
 import '../services/bmi_calculator.dart';
@@ -76,11 +76,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.clearHistory),
-        content: Text(l10n.confirmClear),
+        content: Text("Confirm"),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text(l10n.cancel),
+            child: Text("Cancel"),
           ),
           TextButton(
             onPressed: () {
@@ -88,7 +88,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               setState(() {});
               Navigator.pop(context);
             },
-            child: Text(l10n.confirm, style: const TextStyle(color: Colors.red)),
+            child: Text("Confirm", style: const TextStyle(color: Colors.red)),
           ),
         ],
       ),

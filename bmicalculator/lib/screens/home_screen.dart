@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:bmicalculator/generated/app_localizations.dart';
 import '../services/bmi_calculator.dart';
 import '../services/storage_service.dart';
 import '../services/ad_service.dart';
@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   const SizedBox(height: 20),
                   Text(
-                    l10n.weight + ' (${isMetric ? l10n.kg : l10n.lbs})',
+                    l10n.weight + ' (${isMetric ? "kg" : "lbs"})',
                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
@@ -148,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 32),
                   Text(
-                    l10n.height + ' (${isMetric ? l10n.cm : l10n.feet + '/' + l10n.inches})',
+                    l10n.height + ' (${isMetric ? "cm" : "feet" + '/' + "inches"})',
                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
@@ -170,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                              labelText: l10n.feet,
+                              labelText: "feet",
                             ),
                           ),
                         ),
@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                              labelText: l10n.inches,
+                              labelText: "inches",
                             ),
                           ),
                         ),

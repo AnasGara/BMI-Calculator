@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:bmicalculator/generated/app_localizations.dart';
 import '../main.dart';
 import 'privacy_policy_screen.dart';
 import 'terms_screen.dart';
@@ -48,7 +48,7 @@ class SettingsScreen extends StatelessWidget {
             },
           ),
           const Divider(),
-          _SectionHeader(title: l10n.appInfo),
+          _SectionHeader(title: "appInfo"),
           ListTile(
             leading: const Icon(Icons.privacy_tip_outlined),
             title: Text(l10n.privacyPolicy),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:bmicalculator/generated/app_localizations.dart';
 import '../services/storage_service.dart';
 import '../main.dart';
 import 'home_screen.dart';
@@ -21,7 +21,7 @@ class UnitSelectScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 40),
               Text(
-                l10n.selectUnitSystem,
+                "Select Unit System",
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
