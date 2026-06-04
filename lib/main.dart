@@ -62,7 +62,7 @@ class BMICalculatorApp extends StatelessWidget {
     final appState = context.watch<AppState>();
 
     return MaterialApp(
-      title: 'BMI Calculator',
+      title: 'Calculatrice IMC',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
