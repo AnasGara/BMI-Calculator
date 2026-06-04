@@ -19,16 +19,26 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
     _loadAd();
   }
 
-  void _loadAd() {
+  void _loadAd() async {
+    if (!mounted) return;
+
+    final width = MediaQuery.of(context).size.width.truncate();
+    final AnchoredAdaptiveBannerAdSize? size =
+        await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(width);
+
+    if (!mounted) return;
+
     _bannerAd = BannerAd(
       adUnitId: AdService().bannerAdUnitId,
       request: const AdRequest(),
-      size: AdSize.banner,
+      size: size ?? AdSize.banner,
       listener: BannerAdListener(
         onAdLoaded: (ad) {
-          setState(() {
-            _isLoaded = true;
-          });
+          if (mounted) {
+            setState(() {
+              _isLoaded = true;
+            });
+          }
         },
         onAdFailedToLoad: (ad, err) {
           ad.dispose();
@@ -46,7 +56,8 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
   @override
   Widget build(BuildContext context) {
     if (_isLoaded && _bannerAd != null) {
-      return SizedBox(
+      return Container(
+        alignment: Alignment.center,
         width: _bannerAd!.size.width.toDouble(),
         height: _bannerAd!.size.height.toDouble(),
         child: AdWidget(ad: _bannerAd!),
