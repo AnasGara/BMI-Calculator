@@ -1,4 +1,4 @@
-package com.anasgara.bmi.easy_bmi_calulator
+package com.anasgara.imccalculator
 
 import io.flutter.embedding.android.FlutterActivity
 
