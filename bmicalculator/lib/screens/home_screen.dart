@@ -58,10 +58,13 @@ class _HomeScreenState extends State<HomeScreen> {
         };
 
         context.read<StorageService>().addHistory(entry);
-        AdService().incrementCalculationCount();
 
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => ResultScreen(bmi: bmi)),
+        AdService().showInterstitialAd(
+          onAdDismissed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => ResultScreen(bmi: bmi)),
+            );
+          },
         );
       }
     } catch (e) {
