@@ -25,7 +25,7 @@ android {
         applicationId = "com.anasgara.imccalculator"
         minSdk = flutter.minSdkVersion
         targetSdk = 35
-        versionCode = flutter.versionCode
+        versionCode = 5
         versionName = flutter.versionName
     }
 
