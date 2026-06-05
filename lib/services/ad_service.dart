@@ -8,16 +8,19 @@ class AdService {
   AdService._internal();
 
   int _calculationCount = 0;
+  InterstitialAd? _interstitialAd;
+  bool _isInterstitialAdLoading = false;
 
   Future<void> init() async {
     await MobileAds.instance.initialize();
+    _loadInterstitialAd();
   }
 
   String get bannerAdUnitId {
     if (Platform.isAndroid) {
       return 'ca-app-pub-8118443350307206/4788794414';
     } else if (Platform.isIOS) {
-      // User specified android only, but keeping a placeholder for safety
+      // TODO: Replace with your production iOS Banner Ad Unit ID
       return 'ca-app-pub-3940256099942544/2934735716';
     }
     throw UnsupportedError('Unsupported platform');
@@ -27,7 +30,7 @@ class AdService {
     if (Platform.isAndroid) {
       return 'ca-app-pub-8118443350307206/9163153697';
     } else if (Platform.isIOS) {
-      // User specified android only, but keeping a placeholder for safety
+      // TODO: Replace with your production iOS Interstitial Ad Unit ID
       return 'ca-app-pub-3940256099942544/4411468910';
     }
     throw UnsupportedError('Unsupported platform');
@@ -38,29 +41,59 @@ class AdService {
     // We can keep this if we want periodic ads, but the user requested one on every calculation.
   }
 
-  void showInterstitialAd({VoidCallback? onAdDismissed}) {
+  void _loadInterstitialAd() {
+    if (_isInterstitialAdLoading || _interstitialAd != null) return;
+
+    _isInterstitialAdLoading = true;
     InterstitialAd.load(
       adUnitId: interstitialAdUnitId,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
-          ad.fullScreenContentCallback = FullScreenContentCallback(
+          _interstitialAd = ad;
+          _isInterstitialAdLoading = false;
+          _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
             onAdDismissedFullScreenContent: (ad) {
               ad.dispose();
-              if (onAdDismissed != null) onAdDismissed();
+              _interstitialAd = null;
+              _loadInterstitialAd();
             },
             onAdFailedToShowFullScreenContent: (ad, error) {
               ad.dispose();
-              if (onAdDismissed != null) onAdDismissed();
+              _interstitialAd = null;
+              _loadInterstitialAd();
             },
           );
-          ad.show();
         },
         onAdFailedToLoad: (error) {
+          _isInterstitialAdLoading = false;
+          _interstitialAd = null;
           print('InterstitialAd failed to load: $error');
-          if (onAdDismissed != null) onAdDismissed();
         },
       ),
     );
+  }
+
+  void showInterstitialAd({VoidCallback? onAdDismissed}) {
+    if (_interstitialAd != null) {
+      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+        onAdDismissedFullScreenContent: (ad) {
+          ad.dispose();
+          _interstitialAd = null;
+          if (onAdDismissed != null) onAdDismissed();
+          _loadInterstitialAd();
+        },
+        onAdFailedToShowFullScreenContent: (ad, error) {
+          ad.dispose();
+          _interstitialAd = null;
+          if (onAdDismissed != null) onAdDismissed();
+          _loadInterstitialAd();
+        },
+      );
+      _interstitialAd!.show();
+    } else {
+      if (onAdDismissed != null) onAdDismissed();
+      _loadInterstitialAd();
+    }
   }
 }
